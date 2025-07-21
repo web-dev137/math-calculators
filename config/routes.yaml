@@ -1,5 +1,5 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+matrix_controllers:
+    resource: 
+        path: ../src/Matrix/Presintation/Controller
+        namespace: App\Matrix\Presintation\Controller
     type: attribute

@@ -27,7 +27,7 @@ class MatrixController extends AbstractController
     ){}
 
     #[Route('/multiply',methods:['POST'])]
-    public function getMatrix(#[MapRequestPayload] TwoMatrixOperationRequest $matrixRequest):JsonResponse
+    public function multiply(#[MapRequestPayload] TwoMatrixOperationRequest $matrixRequest):JsonResponse
     {
        $matrixRequest->isValid();
        $matrixA = $this->factory->create(matrix: $matrixRequest->matrixA);

@@ -12,6 +12,5 @@ class MatrixMultiplyQuery implements QueryInterface
     public function __construct(
         public Matrix $matrixA, 
         public Matrix $matrixB
-    ){
-    }
+    ){}
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Matrix\Application\Service\MatrixMultiply;
 
 use App\Common\Query\QueryHandlerInterface;
+use App\Matrix\Domain\Entity\Matrix;
 use App\Matrix\Domain\Service\MatrixOperationsService;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -17,6 +18,8 @@ class MatrixMultiplyQueryHandler implements QueryHandlerInterface
 
     public function __invoke(MatrixMultiplyQuery $query): array
     {
-        return $this->matrixOperationsService->multiply($query->matrixA,$query->matrixB);
+        return $this->matrixOperationsService
+                ->multiply(matrixA: $query->matrixA,matrixB: $query->matrixB)
+                ->getMatrix();
     }
 }

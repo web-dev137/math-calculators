@@ -41,4 +41,9 @@ class Matrix
    {
         return $this->matrix;
    }
+
+   public function getColumn($col): array
+   {
+        return array_column($this->matrix,$col);
+   }
 }

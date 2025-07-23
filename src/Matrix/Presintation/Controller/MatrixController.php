@@ -6,6 +6,7 @@ use App\Common\Query\QueryBusInterface;
 use App\Matrix\Application\DTO\MatrixOperationRequest;
 use App\Matrix\Application\DTO\TwoMatrixOperationRequest;
 use App\Matrix\Application\Service\MatrixMultiply\MatrixMultiplyQuery;
+use App\Matrix\Application\Service\MatrixTransponse\MatrixTransponseQuery;
 use App\Matrix\Domain\Factory\MatrixFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,12 +30,21 @@ class MatrixController extends AbstractController
     #[Route('/multiply',methods:['POST'])]
     public function multiply(#[MapRequestPayload] TwoMatrixOperationRequest $matrixRequest):JsonResponse
     {
-       $matrixRequest->isValid();
        $matrixA = $this->factory->create(matrix: $matrixRequest->matrixA);
        $matrixB = $this->factory->create(matrix: $matrixRequest->matrixB);
        $command = new MatrixMultiplyQuery(matrixA: $matrixA,matrixB: $matrixB);
        $res = $this->queryBus->query(query: $command);
        $res = $this->serializer->serialize(data: $res,format: 'json');
        return JsonResponse::fromJsonString(data: $res);
+    }
+
+    #[Route('/transponse', methods:['POST'])]
+    public function transponse(#[MapRequestPayload] MatrixOperationRequest $matrixRequest):JsonResponse
+    {
+        $matrix = $this->factory->create(matrix: $matrixRequest->matrix);
+        $command = new MatrixTransponseQuery(matrix: $matrix);
+        $res = $this->queryBus->query(query: $command);
+        $res = $this->serializer->serialize(data: $res,format: 'json');
+        return JsonResponse::fromJsonString(data: $res);
     }
 }

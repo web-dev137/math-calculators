@@ -14,14 +14,14 @@ class Matrix
    public function __construct(array $matrix)
    {
         $this->setMatrix(matrix: $matrix);
-        $this->numColumns = count($this->matrix[0]);
-        $this->numRows = $this->numColumns;
+        $this->numColumns = count(value: $this->matrix[0]);
+        $this->numRows = count(value: $matrix);
    }
 
    public function setMatrix(array $matrix)
    {
         if(!is_array(value: $matrix[0]) || count(value: $matrix[0]) < 2) {
-            throw new Exception("Матрица A не валидна");
+            throw new Exception("Матрица не валидна");
         }
 
         $this->matrix = $matrix;
@@ -44,6 +44,11 @@ class Matrix
 
    public function getColumn($col): array
    {
-        return array_column($this->matrix,$col);
+        return array_column(array: $this->matrix,column_key: $col);
+   }
+
+   public  function isSquare():bool
+   {
+        return $this->numRows == $this->numColumns;
    }
 }

@@ -6,16 +6,21 @@ namespace App\Matrix\Domain\Service;
 
 use App\Matrix\Domain\Entity\Matrix;
 use App\Matrix\Domain\Factory\MatrixFactory;
+use App\Matrix\Domain\Specification\MultiplyMatrixSpecification;
 
 class MatrixOperationsService
 {
+    public function __construct(
+        private MatrixFactory $factory,
+        private MultiplyMatrixSpecification $specification
+    ){}
     public function multiply(Matrix $matrixA, Matrix $matrixB): Matrix
     {
         $A = $matrixA->getMatrix();
         $B = $matrixB->getMatrix();
         $rows = $matrixA->getNumRows();
         $cols = $matrixA->getNumColumns();
-        $factory = new MatrixFactory();
+        $this->specification->satisfy(A: $matrixA,B: $matrixB);
         for($i = 0; $i <= $rows-1; $i++) {
             for($j = 0; $j <= $cols-1; $j++) {
                 $res[$i][$j] = 0;
@@ -24,7 +29,7 @@ class MatrixOperationsService
                 }
             }
         }
-        return $factory->create(matrix: $res);
+        return $this->factory->create(matrix: $res);
     }
 
     public function transponse(Matrix $A): Matrix

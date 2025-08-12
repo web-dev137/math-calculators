@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Matrix\Presintation\Controller;
+namespace App\Matrix\Presentation\Controller;
 
 use App\Common\Query\QueryBusInterface;
 use App\Matrix\Application\DTO\MatrixOperationRequest;
